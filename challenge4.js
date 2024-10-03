@@ -20,13 +20,17 @@ const map = (arr, fn) => {
   return result;
 };
 
-//console.log(map([19, 2, 5], addTwo));
+console.log(map([19, 2, 5], addTwo));
 
 let alphabet = "";
 const letters = ["a", "b", "c", "d"];
 
-
-const forEach = (le)
+const forEach = (array, callback) => {
+  for (let i = 0; i < array.length; i++) {
+    callback(array[i]);
+  }
+  //alphabet += char;
+};
 
 forEach(letters, function (char) {
   alphabet += char;
