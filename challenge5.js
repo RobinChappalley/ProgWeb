@@ -56,5 +56,9 @@ const contains9multiple =() =>{
 //console.log(contains9multiple())
 
 const sortsEvenAndOdd = () =>{
-    
+  const even = numbers.filter((x) => x % 2 === 0)
+  const odd = numbers.filter((x) => x % 2 !== 0)
+  return [...even, ...odd]    
 }
+
+console.log(sortsEvenAndOdd());
