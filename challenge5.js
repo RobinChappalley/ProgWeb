@@ -25,5 +25,11 @@ const omitsFirst = (arr) => {
     return wanted;
 }
 
-console.log(omitsFirst(numbers))
+//console.log(omitsFirst(numbers))
+
+const omitsLast = (arr)=>{
+    return arr.slice(0, arr.length-1) 
+}
+
+console.log(omitsLast(numbers))
 
