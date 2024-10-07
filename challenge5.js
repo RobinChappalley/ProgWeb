@@ -1,13 +1,5 @@
-const numbers = [123, 4556, 789];
+const numbers = Object.freeze([3, 14, 15, 92 ,65, 35, 89, 79, 32, 38]);
 
-numbers.forEach((number) => {
-  console.log(`${number} is a beautiful number`);
-});
+const number1 = (numbers)=> console.log(numbers);
 
-const doubledNumbers =
- numbers.map((number) => number * 2);
-
- console.log(doubledNumbers)
- console.log(numbers);
-
-  console.log(numbers.filter((number)=> number < 500))
+number1(numbers)
