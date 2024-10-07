@@ -131,18 +131,37 @@ const identifiesIfPalindromic = (arr) => {
 
 //console.log(identifiesIfPalindromic(strings));
 
-
 function reverse(s) {
-  for (var i = s.length - 1, o = ''; i >= 0; o += s[i--]) { }
+  for (var i = s.length - 1, o = ""; i >= 0; o += s[i--]) {}
   return o;
 }
 
 const circles = Object.freeze([
-  {x: 20, y: 10 , r: 10, color: "red"},
-  {x: 10, y: 10 , r: 20, color: "green"},
-  {x: 30, y: 25 , r: 15, color: "blue"},
-  {x: 10, y:5 , r: 5, color: "red"}
+  { x: 20, y: 10, r: 10, color: "red" },
+  { x: 10, y: 10, r: 20, color: "green" },
+  { x: 30, y: 25, r: 15, color: "blue" },
+  { x: 10, y: 5, r: 5, color: "red" },
 ]);
 circles.forEach(Object.freeze);
 
+const calculatesArea = () => {
+  let areas = [];
+  circles.forEach((circle) => {
+    areas.push(Math.PI * circle.r ** 2);
+  });
+  return areas;
+};
 
+//console.log(calculatesArea());
+
+const givesRedCircles = ()=>{
+  let redCircles = [];
+  circles.forEach((circle) => {
+    if(circle.color === "red"){
+      redCircles.push(circle);
+      }
+      });
+      return redCircles;
+}
+
+console.log(givesRedCircles())
