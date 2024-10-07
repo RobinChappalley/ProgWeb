@@ -63,5 +63,15 @@ const sortsEvenAndOdd = () => {
 
 //console.log(sortsEvenAndOdd());
 
-console.log(numbers.toSorted((a, b) => a - b))
-console.log(numbers.toSorted((a, b) => -a + b))
+// console.log(numbers.toSorted((a, b) => a - b))
+// console.log(numbers.toSorted((a, b) => -a + b))
+
+const strings = Object.freeze(["Sator", "Arepo", "Tenet", "Opera", "Rotas"]);
+
+
+const containsR = () =>{
+  return strings.some((x) => x.includes("R"))
+}
+
+console.log(containsR())
+
