@@ -105,6 +105,11 @@ const replaceCentralWord = (arr) => {
   return arr;
 };
 
-const changedStrings = [...strings]
+const changedStrings = [...strings];
 //console.log(replaceCentralWord(upgradedStringsEarly()));
 //console.log(replaceCentralWord(changedStrings))
+
+const concatedString = () => {
+  return strings.join(" ");
+};
+console.log(concatedString())
