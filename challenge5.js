@@ -72,6 +72,10 @@ const strings = Object.freeze(["Sator", "Arepo", "Tenet", "Opera", "Rotas"]);
 const containsR = () =>{
   return strings.some((x) => x.includes("R"))
 }
-
 console.log(containsR())
 
+const isLongerThan5 =()=>{
+  return strings.some((x) => x.length > 5)
+}
+
+console.log(isLongerThan5())
