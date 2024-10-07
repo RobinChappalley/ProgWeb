@@ -19,23 +19,33 @@ const n3 = numbers.forEach((x) => {
 
 //const [jeveuxpas, ...n4] =  numbers
 
-
 const omitsFirst = (arr) => {
-    const [, ...wanted] = arr
-    return wanted;
-}
+  const [, ...wanted] = arr;
+  return wanted;
+};
 
 //console.log(omitsFirst(numbers))
 
-const omitsLast = (arr)=>{
-    return arr.slice(0, arr.length-1) 
-}
+const omitsLast = (arr) => {
+  return arr.slice(0, arr.length - 1);
+};
 
 //console.log(omitsLast(numbers))
-const reduces = () =>{
-    const sum = numbers.reduce((a,b)=>a+b);
-    return sum;
-}
+const reduces = () => {
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum;
+};
 
-console.log(reduces())
+console.log(reduces());
 
+const highestValue = () => {
+  let val = numbers[0];
+  numbers.forEach((num) => {
+    if (num > val) {
+      val = num;
+    }
+  });
+  return val;
+};
+
+console.log(highestValue());
