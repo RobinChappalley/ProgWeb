@@ -164,4 +164,15 @@ const givesRedCircles = ()=>{
       return redCircles;
 }
 
-console.log(givesRedCircles())
+//console.log(givesRedCircles())
+
+const givesCenters = () =>{
+  let centers = [];
+  circles.forEach((circle) => {
+    centers.push({x: circle.x, y: circle.y});
+    });
+    return centers;
+}
+
+//console.log(givesCenters())
+
