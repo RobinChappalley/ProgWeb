@@ -154,25 +154,36 @@ const calculatesArea = () => {
 
 //console.log(calculatesArea());
 
-const givesRedCircles = ()=>{
+const givesRedCircles = () => {
   let redCircles = [];
   circles.forEach((circle) => {
-    if(circle.color === "red"){
+    if (circle.color === "red") {
       redCircles.push(circle);
-      }
-      });
-      return redCircles;
-}
+    }
+  });
+  return redCircles;
+};
 
 //console.log(givesRedCircles())
 
-const givesCenters = () =>{
+const givesCenters = () => {
   let centers = [];
   circles.forEach((circle) => {
-    centers.push({x: circle.x, y: circle.y});
-    });
-    return centers;
-}
+    centers.push({ x: circle.x, y: circle.y });
+  });
+  return centers;
+};
 
 //console.log(givesCenters())
 
+const givesCirclesSlideRightby10 = () => {
+  let liftUpCircles = [];
+  circles.forEach((circle) => {
+    let newCircle = Object.assign({}, circle);
+    newCircle.x += 10;
+    liftUpCircles.push(newCircle);
+  });
+  return liftUpCircles;
+};
+
+//console.log(givesCirclesSlideRightby10())
