@@ -36,7 +36,7 @@ const reduces = () => {
   return sum;
 };
 
-console.log(reduces());
+//console.log(reduces());
 
 const highestValue = () => {
   let val = numbers[0];
@@ -48,4 +48,9 @@ const highestValue = () => {
   return val;
 };
 
-console.log(highestValue());
+//console.log(highestValue());
+
+const contains9multiple =() =>{
+    return numbers.some((x) => x % 9 === 0)
+}
+console.log(contains9multiple())
