@@ -53,4 +53,8 @@ const highestValue = () => {
 const contains9multiple =() =>{
     return numbers.some((x) => x % 9 === 0)
 }
-console.log(contains9multiple())
+//console.log(contains9multiple())
+
+const sortsEvenAndOdd = () =>{
+    
+}
