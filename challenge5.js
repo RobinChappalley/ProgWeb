@@ -9,8 +9,21 @@ const n2 = numbers.map((x) => x * 2);
 //console.log(n2);
 
 const arrayOfAlters = [];
-const n3 = numbers.forEach((x) =>{
-  x % 2!==0 ? arrayOfAlters.push(x) : console.log("impair")
+const n3 = numbers.forEach((x) => {
+  if (x % 2 !== 0) {
+    arrayOfAlters.push(x);
+  }
 });
 
-console.log(arrayOfAlters);
+//console.log(arrayOfAlters);
+
+//const [jeveuxpas, ...n4] =  numbers
+
+
+const omitsFirst = (arr) => {
+    const [, ...wanted] = arr
+    return wanted;
+}
+
+console.log(omitsFirst(numbers))
+
