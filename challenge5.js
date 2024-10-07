@@ -71,13 +71,13 @@ const strings = Object.freeze(["Sator", "Arepo", "Tenet", "Opera", "Rotas"]);
 const containsR = () => {
   return strings.some((x) => x.includes("R"));
 };
-console.log(containsR());
+//console.log(containsR());
 
 const isLongerThan5 = () => {
   return strings.some((x) => x.length > 5);
 };
 
-console.log(isLongerThan5());
+//console.log(isLongerThan5());
 
 const addWord = () => {
   strings.push("Astra");
@@ -87,10 +87,24 @@ const upgradedStringsEarly = () => {
   return ["Astra", ...strings];
 };
 
-console.log(upgradedStringsEarly());
+//console.log(upgradedStringsEarly());
 
 const upgradedStringsLate = () => {
   return [...strings, "Astra"];
 };
 
-console.log(upgradedStringsLate())
+//console.log(upgradedStringsLate());
+
+const getMiddleIndex = (arr) => {
+  return Math.ceil(arr.length / 2) - 1;
+};
+
+const replaceCentralWord = (arr) => {
+  const newWord = "Radar";
+  arr.splice(getMiddleIndex(arr), 1, newWord);
+  return arr;
+};
+
+const changedStrings = [...strings]
+//console.log(replaceCentralWord(upgradedStringsEarly()));
+//console.log(replaceCentralWord(changedStrings))
