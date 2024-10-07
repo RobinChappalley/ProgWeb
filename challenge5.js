@@ -6,4 +6,11 @@ const n1 = (numbers) => console.log(numbers);
 
 const n2 = numbers.map((x) => x * 2);
 
-console.log(n2);
+//console.log(n2);
+
+const arrayOfAlters = [];
+const n3 = numbers.forEach((x) =>{
+  x % 2!==0 ? arrayOfAlters.push(x) : console.log("impair")
+});
+
+console.log(arrayOfAlters);
