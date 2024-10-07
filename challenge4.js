@@ -32,3 +32,21 @@ forEach(letters, (char) => {
   alphabet += char;
 });
 console.log(alphabet);
+
+const reduce = (arr, fn, initialvalue) => {
+  let acc;
+  if (initialvalue) {
+    acc = initialvalue;
+  } else {
+    acc = arr[0];
+    arr.shift();
+  }
+
+  arr.forEach(element=>{
+    acc = fn(acc, element)
+  })
+  return acc;
+};
+
+console.log (reduce([1,2,3], addTwo, 0))
+
