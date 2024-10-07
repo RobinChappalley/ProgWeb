@@ -66,8 +66,6 @@ const sortsEvenAndOdd = () => {
 // console.log(numbers.toSorted((a, b) => a - b))
 // console.log(numbers.toSorted((a, b) => -a + b))
 
-const strings = Object.freeze(["Sator", "Arepo", "Tenet", "Opera", "Rotas"]);
-
 const containsR = () => {
   return strings.some((x) => x.includes("R"));
 };
@@ -95,27 +93,52 @@ const upgradedStringsLate = () => {
 
 //console.log(upgradedStringsLate());
 
-const getMiddleIndex = (arr) => {
-  return Math.ceil(arr.length / 2) - 1;
-};
-
 const replaceCentralWord = (arr) => {
   const newWord = "Radar";
   arr.splice(getMiddleIndex(arr), 1, newWord);
   return arr;
 };
 
-const changedStrings = [...strings];
+//const changedStrings = [...strings];
 //console.log(replaceCentralWord(upgradedStringsEarly()));
 //console.log(replaceCentralWord(changedStrings))
 
-const concatedString = () => {
-  return strings.join(" ");
-};
 //console.log(concatedString())
 
 const sortsAlphabeticalOrder = () => {
-  changedStrings.sort((a, b) => a.localeCompare(b, 'fr', { sensitity: 'base' }));
+  changedStrings.sort((a, b) =>
+    a.localeCompare(b, "fr", { sensitity: "base" })
+  );
 };
-sortsAlphabeticalOrder()
-console.log(changedStrings);
+//sortsAlphabeticalOrder();
+//console.log(changedStrings);
+
+const strings = Object.freeze(["Sator", "Arepo", "Tenet", "Opera", "Rotas"]);
+
+const getMiddleIndex = (arr) => {
+  return Math.ceil(arr.length / 2) - 1;
+};
+const concatedString = () => {
+  return strings.join("");
+};
+
+const identifiesIfPalindromic = (arr) => {
+  let isPalindromical = false;
+  let string = concatedString().toLowerCase();
+  let firstHalf = string.slice(0, getMiddleIndex(string));
+  console.log(firstHalf);
+  let secondHalf = reverse(string.slice(getMiddleIndex(string) + 1));
+  console.log(secondHalf);
+  if (firstHalf === secondHalf) {
+    isPalindromical = true;
+  }
+  return isPalindromical;
+};
+
+console.log(identifiesIfPalindromic(strings));
+
+
+function reverse(s) {
+  for (var i = s.length - 1, o = ''; i >= 0; o += s[i--]) { }
+  return o;
+}
