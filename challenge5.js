@@ -125,14 +125,8 @@ const concatedString = () => {
 const identifiesIfPalindromic = (arr) => {
   let isPalindromical = false;
   let string = concatedString().toLowerCase();
-  let firstHalf = string.slice(0, getMiddleIndex(string));
-  console.log(firstHalf);
-  let secondHalf = reverse(string.slice(getMiddleIndex(string) + 1));
-  console.log(secondHalf);
-  if (firstHalf === secondHalf) {
-    isPalindromical = true;
-  }
-  return isPalindromical;
+  let reversedString = reverse(string);
+  return string === reversedString;
 };
 
 console.log(identifiesIfPalindromic(strings));
