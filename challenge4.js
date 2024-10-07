@@ -1,12 +1,8 @@
-const addTwo = (number) => {
-  return number + 2;
-};
+const addTwo = (number) => number + 2;
 
 //console.log(addTwo(10));
 
-const pluralize = (word) => {
-  return word + "s";
-};
+const pluralize = (word) => word + "s";
 
 //console.log(pluralize("pizza"));
 
@@ -20,19 +16,19 @@ const map = (arr, fn) => {
   return result;
 };
 
-console.log(map([19, 2, 5], addTwo));
+//console.log(map([19, 2, 5], addTwo));
 
-let alphabet = "";
 const letters = ["a", "b", "c", "d"];
 
 const forEach = (array, callback) => {
   for (let i = 0; i < array.length; i++) {
     callback(array[i]);
   }
-  //alphabet += char;
 };
 
-forEach(letters, function (char) {
+let alphabet = "";
+
+forEach(letters, (char) => {
   alphabet += char;
 });
 console.log(alphabet);
