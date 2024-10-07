@@ -112,4 +112,10 @@ const changedStrings = [...strings];
 const concatedString = () => {
   return strings.join(" ");
 };
-console.log(concatedString())
+//console.log(concatedString())
+
+const sortsAlphabeticalOrder = () => {
+  changedStrings.sort((a, b) => a.localeCompare(b, 'fr', { sensitity: 'base' }));
+};
+sortsAlphabeticalOrder()
+console.log(changedStrings);
