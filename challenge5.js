@@ -31,5 +31,11 @@ const omitsLast = (arr)=>{
     return arr.slice(0, arr.length-1) 
 }
 
-console.log(omitsLast(numbers))
+//console.log(omitsLast(numbers))
+const reduces = () =>{
+    const sum = numbers.reduce((a,b)=>a+b);
+    return sum;
+}
+
+console.log(reduces())
 
