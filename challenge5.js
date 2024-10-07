@@ -64,3 +64,4 @@ const sortsEvenAndOdd = () => {
 //console.log(sortsEvenAndOdd());
 
 console.log(numbers.toSorted((a, b) => a - b))
+console.log(numbers.toSorted((a, b) => -a + b))
