@@ -122,14 +122,11 @@ const concatedString = () => {
   return strings.join("");
 };
 
-const identifiesIfPalindromic = (arr) => {
-  let isPalindromical = false;
-  let string = concatedString().toLowerCase();
-  let reversedString = reverse(string);
-  return string === reversedString;
+const identifiesIfPalindromic = () => {
+  return concatedString().toLowerCase() === reverse(concatedString().toLowerCase())
 };
 
-//console.log(identifiesIfPalindromic(strings));
+console.log(identifiesIfPalindromic());
 
 function reverse(s) {
   for (var i = s.length - 1, o = ""; i >= 0; o += s[i--]) {}
