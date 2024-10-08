@@ -18,8 +18,16 @@ function createPoll(prompt) {
 const poll = createPoll(examplePrompt);
 
 const vote = (vote) => {
-  const poll = createPoll(examplePrompt);
+  //const poll = createPoll(examplePrompt);
   const index = poll.options.indexOf(vote);
   poll.votes[index]++;
-  console.log(`You voted for ${poll.options[vote - 1]}`);
+  //console.log(`You voted for ${poll.options[vote - 1]}`);
+  displays();
+};
+
+const displays = () => {
+  console.log(poll.question);
+  poll.options.forEach((el, index) => {
+    console.log(`${index + 1}. ${el} - ${poll.votes[index]}`);
+  });
 };
