@@ -3,10 +3,23 @@ const examplePrompt = {
   options: ["1. JavaScript", "2. PHP", "3. Java", "4. Assembly"],
 };
 
-const createPoll = (prompt) => {
+function createPoll(prompt) {
   console.log(prompt.question);
-  prompt.options.forEach((el) => {console.log(el)});
-  
-};
+  prompt.options.forEach((el) => {
+    console.log(el);
+  });
+  return {
+    question: prompt.question,
+    options: prompt.options,
+    votes: [].fill(0),
+  };
+}
 
-createPoll(examplePrompt);
+const poll = createPoll(examplePrompt);
+
+const vote = (vote) => {
+  const poll = createPoll(examplePrompt);
+  const index = poll.options.indexOf(vote);
+  poll.votes[index]++;
+  console.log(`You voted for ${poll.options[vote - 1]}`);
+};
