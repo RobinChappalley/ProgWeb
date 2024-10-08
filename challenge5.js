@@ -126,7 +126,7 @@ const identifiesIfPalindromic = () => {
   return concatedString().toLowerCase() === reverse(concatedString().toLowerCase())
 };
 
-console.log(identifiesIfPalindromic());
+//console.log(identifiesIfPalindromic());
 
 function reverse(s) {
   for (var i = s.length - 1, o = ""; i >= 0; o += s[i--]) {}
