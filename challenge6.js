@@ -16,7 +16,7 @@ function createPoll(prompt) {
   return {
     question: prompt.question,
     optionsAndVotes,
-    vote: (vote = (optionChoosed) => {
+    vote: (optionChoosed) => {
       if (checkSanity(optionChoosed)) {
         console.error("You can't vote for this option");
       } else {
@@ -24,10 +24,14 @@ function createPoll(prompt) {
       }
       //console.log(`You voted for ${poll.options[vote - 1]}`);
       displays(); // displays the updated poll
-    }),
+    },
   };
 }
 
+const checkSanity = (parameter) => {
+  //console.log(this.optionsAndVotes.size);
+  return typeof parameter === 'number'
+};
 const poll = createPoll(examplePrompt);
 const poll2 = createPoll(coursePrompt);
 
@@ -40,19 +44,6 @@ const poll2 = createPoll(coursePrompt);
 //   //console.log(`You voted for ${poll.options[vote - 1]}`);
 //   displays();
 // };
-
-const checkSanity = (parameter) => {
-  console.log(this.optionsAndVotes.size)
-  if (
-    parameter >= 1 &&
-    parameter <= this.optionsAndVotes.size &&
-    typeof parameter !== "number"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 const displays = (poll) => {
   console.log(poll.question);
