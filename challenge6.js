@@ -5,8 +5,8 @@ const examplePrompt = {
 
 const coursePrompt = {
   question: "Ce challenge est-il difficile?",
-  options: ["Oui", "Non"]
-}
+  options: ["Oui", "Non"],
+};
 
 function createPoll(prompt) {
   const optionsAndVotes = new Map();
@@ -16,20 +16,45 @@ function createPoll(prompt) {
   return {
     question: prompt.question,
     optionsAndVotes,
+    vote: (vote = (optionChoosed) => {
+      if (checkSanity(optionChoosed)) {
+        console.error("You can't vote for this option");
+      } else {
+        this.optionsAndVotes.set(vote, this.optionsAndVotes.get(vote) + 1);
+      }
+      //console.log(`You voted for ${poll.options[vote - 1]}`);
+      displays(); // displays the updated poll
+    }),
   };
 }
 
 const poll = createPoll(examplePrompt);
+const poll2 = createPoll(coursePrompt);
 
+// const vote = (optionChoosed) => {
+//   if (checkSanity(optionChoosed)) {
+//     console.error("You can't vote for this option");
+//   } else {
+//     this.optionsAndVotes.set(vote, this.optionsAndVotes.get(vote) + 1);
+//   }
+//   //console.log(`You voted for ${poll.options[vote - 1]}`);
+//   displays();
+// };
 
-const vote = (vote) => {
-  const index = poll.options.indexOf(vote);
-  poll.votes[index]++;
-  //console.log(`You voted for ${poll.options[vote - 1]}`);
-  displays();
+const checkSanity = (parameter) => {
+  console.log(this.optionsAndVotes.size)
+  if (
+    parameter >= 1 &&
+    parameter <= this.optionsAndVotes.size &&
+    typeof parameter !== "number"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
-const displays = () => {
+const displays = (poll) => {
   console.log(poll.question);
   poll.options.forEach((el, index) => {
     console.log(`${index + 1}. ${el} - ${poll.votes[index]}`);
