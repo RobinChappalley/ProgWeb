@@ -4,27 +4,20 @@ const examplePrompt = {
 };
 
 function createPoll(prompt) {
-  //console.log(prompt.question);
+  const optionsAndVotes = new Map();
   prompt.options.forEach((el) => {
-    //console.log(el);
+    optionsAndVotes.set(el, 0);
   });
   return {
     question: prompt.question,
-    options: prompt.options,
-    votes: [].fill(0),
+    optionsAndVotes,
   };
 }
 
-const mapOfPrompt = new Map();
-
-//mapOfPrompt.set(poll.question, 0)
-
-console.log(mapOfPrompt);
 const poll = createPoll(examplePrompt);
-poll.options.forEach((option) => mapOfPrompt.set(option, 0));
+
 
 const vote = (vote) => {
-  //const poll = createPoll(examplePrompt);
   const index = poll.options.indexOf(vote);
   poll.votes[index]++;
   //console.log(`You voted for ${poll.options[vote - 1]}`);
