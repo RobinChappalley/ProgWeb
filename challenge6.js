@@ -17,7 +17,7 @@ function createPoll(prompt) {
     question: prompt.question,
     optionsAndVotes,
     vote: (optionChoosed) => {
-      if (!checkSanity(optionChoosed)) {
+      if (typeof optionChoosed !== "number") {
         console.error("You can't vote for this option");
       } else {
         this.optionsAndVotes.set(vote, this.optionsAndVotes.get(vote) + 1);
@@ -28,9 +28,7 @@ function createPoll(prompt) {
   };
 }
 
-const checkSanity = (parameter) => {
-  return typeof parameter === "number";
-};
+
 const poll = createPoll(examplePrompt);
 const poll2 = createPoll(coursePrompt);
 
