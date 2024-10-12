@@ -4,9 +4,9 @@ const examplePrompt = {
 };
 
 function createPoll(prompt) {
-  console.log(prompt.question);
+  //console.log(prompt.question);
   prompt.options.forEach((el) => {
-    console.log(el);
+    //console.log(el);
   });
   return {
     question: prompt.question,
@@ -15,7 +15,13 @@ function createPoll(prompt) {
   };
 }
 
+const mapOfPrompt = new Map();
+
+//mapOfPrompt.set(poll.question, 0)
+
+console.log(mapOfPrompt);
 const poll = createPoll(examplePrompt);
+poll.options.forEach((option) => mapOfPrompt.set(option, 0));
 
 const vote = (vote) => {
   //const poll = createPoll(examplePrompt);
