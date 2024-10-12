@@ -3,6 +3,11 @@ const examplePrompt = {
   options: ["1. JavaScript", "2. PHP", "3. Java", "4. Assembly"],
 };
 
+const coursePrompt = {
+  question: "Ce challenge est-il difficile?",
+  options: ["Oui", "Non"]
+}
+
 function createPoll(prompt) {
   const optionsAndVotes = new Map();
   prompt.options.forEach((el) => {
