@@ -34,7 +34,7 @@ function createPoll(prompt) {
         );
       }
       console.log(`You voted for ${poll.options[choice - 1]}`);
-      displays(this); // displays the updated poll
+      displays(); // displays the updated poll
     },
   };
 }
@@ -43,20 +43,11 @@ function createPoll(prompt) {
 const poll = createPoll(examplePrompt);
 const poll2 = createPoll(coursePrompt);
 
-// const vote = (optionChoosed) => {
-//   if (checkSanity(optionChoosed)) {
-//     console.error("You can't vote for this option");
-//   } else {
-//     this.optionsAndVotes.set(vote, this.optionsAndVotes.get(vote) + 1);
-//   }
-//   //console.log(`You voted for ${poll.options[vote - 1]}`);
-//   displays();
-// };
 
-const displays = (poll) => {
-  console.log(poll.question);
+const displays = () => {
+  console.log(this.question);
 
-  poll.optionsAndVotes.forEach((key) => {
-    console.log(`${key} - ${poll.optionsAndVotes.get(key)}`);
+  this.optionsAndVotes.forEach((key) => {
+    console.log(`${key} - ${this.optionsAndVotes.get(key)}`);
   });
 };
