@@ -13,26 +13,34 @@ function createPoll(prompt) {
   prompt.options.forEach((el) => {
     optionsAndVotes.set(el, 0);
   });
+
   return {
     question: prompt.question,
+    options: prompt.options,
     optionsAndVotes,
-    vote: (optionChoosed) => {
-      const index = optionChoosed;
-      console.log(optionChoosed)
-      if (typeof optionChoosed !== "number") {
+
+    vote(choice) {
+      if (
+        typeof choice !== "number" ||
+        choice > this.options.length ||
+        choice < 1
+      ) {
         console.error("You can't vote for this option");
       } else {
-        const optionChoosed = this.optionsAndVotes.get(index);
-        console.log(optionChoosed);
+        const optionChoosed = this.options[choice-1];
         optionsAndVotes.set(
           optionChoosed,
-          optionsAndVotes.get(optionsAndVotes[index] + 1)
+          this.optionsAndVotes.get(optionChoosed) + 1
         );
       }
-      //console.log(`You voted for ${poll.options[vote - 1]}`);
-      //displays(); // displays the updated poll
+      console.log(`You voted for ${poll.options[choice - 1]}`);
+      displays(this); // displays the updated poll
     },
   };
+}
+
+function fntest(test) {
+  console.log(test);
 }
 
 const poll = createPoll(examplePrompt);
