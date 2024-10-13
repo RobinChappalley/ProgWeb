@@ -34,13 +34,13 @@ function createPoll(prompt) {
         );
       }
       console.log(`You voted for ${poll.options[choice - 1]}`);
-      //this.displays()
+      this.displays();
     },
-
+//affiche les informations actuelles du vote
     displays() {
       console.log(this.question);
-      this.optionsAndVotes.forEach((key) => {
-        console.log(`${key} - ${this.optionsAndVotes.get(key)}`);
+      this.optionsAndVotes.forEach((options, votes) => {
+        console.log(`${options} ${options <= 1 ? "vote" : "votes"} - ${votes}`); //affiche le nombre de votes (singulier/pluriel)
       });
     },
   };
