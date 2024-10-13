@@ -19,7 +19,8 @@ function createPoll(prompt) {
     options: prompt.options,
     optionsAndVotes,
     vote(choice) {
-      if ( // vérifications pour que l'entrée us soit valable (nombre, compris dans le arr et <1)
+      if (
+        // vérifications pour que l'entrée us soit valable (nombre, compris dans le arr et <1)
         typeof choice !== "number" ||
         choice > this.options.length ||
         choice < 1
@@ -28,7 +29,7 @@ function createPoll(prompt) {
       } else {
         const optionChoosed = this.options[choice - 1]; //attribue à une variable le contenu de la première case du sondage
         optionsAndVotes.set(
-          optionChoosed,      
+          optionChoosed,
           this.optionsAndVotes.get(optionChoosed) + 1 //augmente de 1 la valeur récupérée par get
         );
       }
@@ -36,12 +37,21 @@ function createPoll(prompt) {
       this.displays();
     },
 
-//affiche les informations actuelles du vote
+    //affiche les informations actuelles du vote
     displays() {
       console.log(this.question);
       this.optionsAndVotes.forEach((options, votes) => {
         console.log(`${options} ${options <= 1 ? "vote" : "votes"} - ${votes}`); //affiche le nombre de votes (singulier/pluriel)
       });
     },
+
+    wins() {
+      const winner = this.options[0];
+      console.log(winner);
+      this.optionsAndVotes.forEach((key) => {});
+      //console.log(`${option} won the poll !`);
+    },
   };
 }
+
+const poll = createPoll(examplePrompt);
