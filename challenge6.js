@@ -39,9 +39,6 @@ function createPoll(prompt) {
   };
 }
 
-function fntest(test) {
-  console.log(test);
-}
 
 const poll = createPoll(examplePrompt);
 const poll2 = createPoll(coursePrompt);
