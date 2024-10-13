@@ -27,27 +27,32 @@ function createPoll(prompt) {
       ) {
         console.error("You can't vote for this option");
       } else {
-        const optionChoosed = this.options[choice-1];
+        const optionChoosed = this.options[choice - 1];
         optionsAndVotes.set(
           optionChoosed,
           this.optionsAndVotes.get(optionChoosed) + 1
         );
       }
       console.log(`You voted for ${poll.options[choice - 1]}`);
-      displays(); // displays the updated poll
+      //this.displays()
+    },
+
+    displays() {
+      console.log(this.question);
+      this.optionsAndVotes.forEach((key) => {
+        console.log(`${key} - ${this.optionsAndVotes.get(key)}`);
+      });
     },
   };
 }
 
-
 const poll = createPoll(examplePrompt);
 const poll2 = createPoll(coursePrompt);
 
+// const displays = () => {
+//   console.log(this.question);
 
-const displays = () => {
-  console.log(this.question);
-
-  this.optionsAndVotes.forEach((key) => {
-    console.log(`${key} - ${this.optionsAndVotes.get(key)}`);
-  });
-};
+//   this.optionsAndVotes.forEach((key) => {
+//     console.log(`${key} - ${this.optionsAndVotes.get(key)}`);
+//   });
+// };
