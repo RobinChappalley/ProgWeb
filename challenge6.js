@@ -46,10 +46,26 @@ function createPoll(prompt) {
     },
 
     wins() {
-      const winner = this.options[0];
-      console.log(winner);
-      this.optionsAndVotes.forEach((key) => {});
-      //console.log(`${option} won the poll !`);
+      const winner = [this.options[0]];
+      // let currentVoteNumber = this.optionsAndVotes.get(winner);
+
+      //console.log(currentVoteNumber);
+      for (let i = 0; i < this.options.length; i++) {
+        const currentOption = this.options[i];
+        const currentVoteNumber = this.optionsAndVotes.get(currentOption);
+        console.log(currentVoteNumber);
+        if (currentVoteNumber >= this.optionsAndVotes.get(this.options[i])) {
+          console.log("on est ici")
+          if (currentVoteNumber === this.optionsAndVotes.get(this.options[i])) {
+console.log("on est là")
+            winner.push(currentOption);
+          } else {
+
+            winner = [currentOption];
+          }
+        }
+      }
+      console.log(`${winner} won the poll !`);
     },
   };
 }
