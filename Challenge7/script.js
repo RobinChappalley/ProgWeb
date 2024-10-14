@@ -30,6 +30,7 @@ document.querySelector("#again").addEventListener("click", () => {
   document.querySelector("#hint").textContent = "Start guessing...";
   document.querySelector("#score").textContent = 20;
   document.querySelector("body").style.backgroundColor = "#222";
+  document.querySelector("#answer").textContent = "?";
   secretNumber = randomNumber();
   console.log(secretNumber);
 });
