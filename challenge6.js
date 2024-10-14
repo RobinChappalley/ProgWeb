@@ -55,12 +55,11 @@ function createPoll(prompt) {
         const currentVoteNumber = this.optionsAndVotes.get(currentOption);
         console.log(currentVoteNumber);
         if (currentVoteNumber >= this.optionsAndVotes.get(this.options[i])) {
-          console.log("on est ici")
+          console.log("on est ici");
           if (currentVoteNumber === this.optionsAndVotes.get(this.options[i])) {
-console.log("on est là")
+            console.log("on est là");
             winner.push(currentOption);
           } else {
-
             winner = [currentOption];
           }
         }
