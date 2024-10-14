@@ -11,10 +11,11 @@ document.querySelector("#check").addEventListener("click", () => {
   if (checkValidity()) {
     if (checkNumber()) {
       document.querySelector("#hint").textContent = "Correct number!";
+      setshighscore();
     } else {
-      document.querySelector(
-        "#hint"
-      ).textContent = `${checkHeight() ?"Too high" : "Too low"}`
+      document.querySelector("#hint").textContent = `${
+        checkHeight() ? "📈Too high" : "📉Too low"
+      }`;
     }
   }
 });
@@ -39,4 +40,13 @@ const checkValidity = () => {
 
 const checkHeight = () => {
   return document.querySelector("#guess").value > secretNumber;
+};
+const setshighscore = () => {
+  if (
+    document.querySelector("#score").textContent >
+    document.querySelector("#highscore").textContent
+  ) {
+    document.querySelector("#highscore").textContent =
+      document.querySelector("#score").textContent;
+  }
 };
