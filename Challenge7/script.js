@@ -11,8 +11,10 @@ document.querySelector("#check").addEventListener("click", () => {
 
   if (checkValidity()) {
     if (checkNumber()) {
+      document.querySelector("#answer").textContent = secretNumber;
       document.querySelector("#hint").textContent = "Correct number!";
       setshighscore();
+      switchcolor();
     } else {
       document.querySelector("#hint").textContent = `${
         checkHeight() ? "📈Too high" : "📉Too low"
@@ -21,13 +23,13 @@ document.querySelector("#check").addEventListener("click", () => {
   }
 });
 
-document.querySelector("#again").addEventListener("click",()=>{
-    document.querySelector("#guess").value = null
-    document.querySelector("#hint").textContent = "Start guessing..."
-    document.querySelector("#score").textContent = 20
-    secretNumber = randomNumber();
-    console.log(secretNumber)    
-})
+document.querySelector("#again").addEventListener("click", () => {
+  document.querySelector("#guess").value = null;
+  document.querySelector("#hint").textContent = "Start guessing...";
+  document.querySelector("#score").textContent = 20;
+  secretNumber = randomNumber();
+  console.log(secretNumber);
+});
 
 const checkNumber = () => {
   return document.querySelector("#guess").value == secretNumber;
@@ -55,4 +57,7 @@ const setshighscore = () => {
   ) {
     highestScore.textContent = document.querySelector("#score").textContent;
   }
+};
+const switchcolor = () => {
+  document.querySelector("body").style.backgroundColor = "green";
 };
