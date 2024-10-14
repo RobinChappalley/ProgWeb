@@ -4,7 +4,7 @@ const randomNumber = () => {
   return Math.floor(Math.random() * 20) + 1;
 };
 const highestScore = document.querySelector("#highscore");
-const secretNumber = randomNumber();
+let secretNumber = randomNumber();
 console.log(secretNumber);
 document.querySelector("#check").addEventListener("click", () => {
   document.querySelector("#score").textContent--;
@@ -20,6 +20,14 @@ document.querySelector("#check").addEventListener("click", () => {
     }
   }
 });
+
+document.querySelector("#again").addEventListener("click",()=>{
+    document.querySelector("#guess").value = null
+    document.querySelector("#hint").textContent = "Start guessing..."
+    document.querySelector("#score").textContent = 20
+    secretNumber = randomNumber();
+    console.log(secretNumber)    
+})
 
 const checkNumber = () => {
   return document.querySelector("#guess").value == secretNumber;
