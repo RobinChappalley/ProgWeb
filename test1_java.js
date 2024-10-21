@@ -13,7 +13,18 @@ prompt(`Bienvenue ${userInput}, c'est à toi de jouer !
 
 const jeu = () => {
   let win = false;
-  do {} while (!win);
+  do {
+    const valeur = parseInt(prompt("Entrez la valeur de ton dé :"));
+    if (valeur < 1 || valeur > 6) {
+      alert("Valeur de dé non valide, veuillez réessayer");
+    } else {
+      caseActuelle = checkSpecialCases();
+      
+      if (caseActuelle > nbcases) {
+        caseActuelle = nbcases - (caseActuelle - nbcases);
+      }
+    }
+  } while (!win);
 };
 
 const movingCases = () => {
