@@ -1,21 +1,25 @@
 "use strict";
 
-const randomNumber = () => {
-  return Math.floor(Math.random() * 20) + 1;
+const MAX_VALUE = 20
+
+const randomNumber = (maxval) => {
+  return Math.floor(Math.random() * maxval) + 1;
 };
 const highestScore = document.querySelector("#highscore");
-let secretNumber = randomNumber();
+
+let secretNumber = randomNumber(MAX_VALUE);
 
 //vérifie la validité de l'entrée usr
 document.querySelector("#check").addEventListener("click", () => {
   document.querySelector("#score").textContent--;
 
-  if (checkValidity()) {
+  if (checkValidity(MAX_VALUE)) {
     if (checkNumber()) {
       document.querySelector("#answer").textContent = secretNumber;
       document.querySelector("#hint").textContent = "Correct number!";
       setshighscore();
-      document.querySelector("body").style.backgroundColor = "green";
+      document.body.style.backgroundColor = "var(--color-tertiary)";
+      document.querySelector("#answer").classList.add("correct")
     } else {
       document.querySelector("#hint").textContent = `${
         checkHeight() ? "📈Too high" : "📉Too low"
@@ -28,21 +32,21 @@ document.querySelector("#check").addEventListener("click", () => {
 document.querySelector("#again").addEventListener("click", () => {
   document.querySelector("#guess").value = null;
   document.querySelector("#hint").textContent = "Start guessing...";
-  document.querySelector("#score").textContent = 20;
-  document.querySelector("body").style.backgroundColor = "#222";
+  document.querySelector("#score").textContent = MAX_VALUE;
+  document.body.style.backgroundColor = "var(--color-primary)";
   document.querySelector("#answer").textContent = "?";
   secretNumber = randomNumber();
-  console.log(secretNumber);
+  document.querySelector("#answer").classList.remove("correct")
 });
 
 const checkNumber = () => {
   return document.querySelector("#guess").value == secretNumber;
 };
-const checkValidity = () => {
+const checkValidity = (maxval) => {
   if (
-    !document.querySelector("#guess").value ||
+    isNaN(document.querySelector("#guess").value) ||
     document.querySelector("#guess").value < 1 ||
-    document.querySelector("#guess").value > 20
+    document.querySelector("#guess").value > maxval
   ) {
     document.querySelector("#hint").textContent =
       "Guess must be between 1 and 20 !";
@@ -51,6 +55,8 @@ const checkValidity = () => {
     return true;
   }
 };
+
+
 const checkHeight = () => {
   return document.querySelector("#guess").value > secretNumber;
 };
