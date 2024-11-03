@@ -3,21 +3,21 @@ const account1 = {
   owner: "Anna Anderson",
   username: "aa",
   movements: [200, 450, -400.5, 3000, -650, -130, 70, 1300],
-  pin: 1234
+  pin: 1234,
 };
 
 const account2 = {
   owner: "Bijan Bell",
   username: "bb",
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  pin: 1111
+  pin: 1111,
 };
 
 const account3 = {
   owner: "Celeste Carter",
   username: "cc",
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  pin: 0000
+  pin: 0000,
 };
 
 const accounts = [account1, account2, account3];
@@ -76,3 +76,16 @@ btnLogin.addEventListener("click", function (e) {
     message(err.message, true);
   }
 });
+
+const displayBalance = () => {
+  let balance
+  for (const amount in currentAccount.movements) {
+   balance += amount;
+   consol.log(balance)
+  }
+
+  //labelBalance.textContent = `$${currentAccount.balance.toFixed(2)}`;
+  console.log(currentAccount.movements);
+};
+
+displayBalance();
