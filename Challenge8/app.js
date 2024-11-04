@@ -17,7 +17,7 @@ const account3 = {
   owner: "Celeste Carter",
   username: "cc",
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  pin: 0000,
+  pin: 0101,
 };
 
 const accounts = [account1, account2, account3];
@@ -72,7 +72,7 @@ btnLogin.addEventListener("click", function (e) {
     currentAccount = matchUser(inputLoginUsername.value, +inputLoginPin.value);
     displayAccount(currentAccount);
     message(`Welcome ${currentAccount.owner}`);
-    displayBalance(currentAccount);
+    displayBalance();
   } catch (err) {
     message(err.message, true);
   }
