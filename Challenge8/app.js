@@ -73,6 +73,8 @@ btnLogin.addEventListener("click", function (e) {
     displayAccount(currentAccount);
     message(`Welcome ${currentAccount.owner}`);
     displayBalance();
+    displaySums();
+    displaysExpense();
   } catch (err) {
     message(err.message, true);
   }
@@ -83,4 +85,16 @@ const displayBalance = () => {
     (acc, amount) => acc + amount,
     0
   );
+};
+
+const displaySums = () => {
+  labelSumIn.textContent = currentAccount.movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+};
+
+const displaysExpense = () => {
+  labelSumOut.textContent = currentAccount.movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
 };
