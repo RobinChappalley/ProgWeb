@@ -17,7 +17,7 @@ const account3 = {
   owner: "Celeste Carter",
   username: "cc",
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  pin: 0101,
+  pin: 0000,
 };
 
 const accounts = [account1, account2, account3];
@@ -61,6 +61,7 @@ const message = (text, error) => {
 const displayAccount = (acc) => {
   if (acc) {
     containerApp.style.opacity = "100";
+    containerMovements.innerHTML = "";
   } else {
     throw new Error("No account to display");
   }
@@ -98,3 +99,5 @@ const displaysExpense = () => {
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
 };
+
+
