@@ -45,3 +45,14 @@ const initGrid = (gridSize) => {
 };
 
 initGrid(Math.floor(Math.random() * 24));
+
+const changeShape = () => {
+  document.querySelector("main").addEventListener("mouseover", e => {
+    if (e.target.classList.contains("grid-item")){
+    console.log(e)
+    e.target.style.backgroundColor = "red";
+    }
+  })
+}
+
+changeShape();
