@@ -130,3 +130,13 @@ const transfer = (from, to, amount) => {
     throw new Error("Couldn't tranfer, something is going wrong");
   }
 };
+
+btnTransfer.addEventListener("click", (e)=>
+e.preventDefault
+try {
+const transferData =   transfer(currentAccount, inputTransferTo.value, inputTransferAmount.value)
+message (`Transfered CHF ${transferData.cleanAmount} to ${transferData.}`)
+
+catch (error) {
+  
+})
