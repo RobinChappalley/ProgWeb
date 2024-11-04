@@ -53,7 +53,7 @@ const changeShape = () => {
         e.target.innerHTML = circle;
       } else if (e.target.children[0].dataset.shape === "square") {
         e.target.innerHTML = triangle;
-      } else {
+      } else if (e.target.children[0].dataset.shape === "circle") {
         e.target.innerHTML = square;
       }
     }
