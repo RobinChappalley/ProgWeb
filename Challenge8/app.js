@@ -119,3 +119,14 @@ const createMovementElement = (mov, i) => {
 
   return html;
 };
+
+const transfer = (from, to, amount) => {
+  const destination = accounts.find((acc) => acc.username === to);
+  const cleanAmount = +amount;
+  if (destination && currentAccount.balance >= cleanAmount && cleanAmount < 0) {
+    destination.movements.push(cleanAmount);
+    currentAccount.movements.push(-cleanAmount);
+  } else {
+    throw new Error("Couldn't tranfer, something is going wrong");
+  }
+};
