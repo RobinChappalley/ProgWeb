@@ -49,11 +49,12 @@ initGrid(Math.floor(Math.random() * 24));
 const changeShape = () => {
   document.querySelector("main").addEventListener("mouseover", (e) => {
     if (e.target.classList.contains("grid-item")) {
-      e.target.style.backgroundColor = "red";
-      // console.log(e.target.children[0].dataset)
       if (e.target.children[0].dataset.shape === "triangle") {
-       // console.log(e.target.children[0]);
-        e.target.innerHTML = circle
+        e.target.innerHTML = circle;
+      } else if (e.target.children[0].dataset.shape === "square") {
+        e.target.innerHTML = triangle;
+      } else {
+        e.target.innerHTML = square;
       }
     }
   });
