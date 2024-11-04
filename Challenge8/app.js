@@ -72,20 +72,15 @@ btnLogin.addEventListener("click", function (e) {
     currentAccount = matchUser(inputLoginUsername.value, +inputLoginPin.value);
     displayAccount(currentAccount);
     message(`Welcome ${currentAccount.owner}`);
+    displayBalance(currentAccount);
   } catch (err) {
     message(err.message, true);
   }
 });
 
 const displayBalance = () => {
-  let balance
-  for (const amount in currentAccount.movements) {
-   balance += amount;
-   consol.log(balance)
-  }
-
-  //labelBalance.textContent = `$${currentAccount.balance.toFixed(2)}`;
-  console.log(currentAccount.movements);
+  labelBalance.textContent = currentAccount.movements.reduce(
+    (acc, amount) => acc + amount,
+    0
+  );
 };
-
-displayBalance();
