@@ -76,6 +76,12 @@ btnLogin.addEventListener("click", function (e) {
     displayBalance();
     displaySums();
     displaysExpense();
+    currentAccount.movements.forEach(mov, (i) => {
+      containerMovements.insertAdjacentElement(
+        "afterbegin",
+        createMovementElement(mov, i)
+      );
+    });
   } catch (err) {
     message(err.message, true);
   }
@@ -100,4 +106,16 @@ const displaysExpense = () => {
     .reduce((acc, mov) => acc + mov, 0);
 };
 
+const createMovementElement = (mov, i) => {
+  const html =
+    `
+  <div class="movements__row">
+  <div class="movements__type movements__type--${
+    mov > 0 ? "deposit" : "withdrawal"
+  }">
+  ${i + mov > 0 ? "Deposit" : "Withdrawal"}</div>` +
+    `<div class="movements__value"></div>`;
+  containerMovements.insertAdjacentHTML("afterbegin", html);
 
+  return html;
+};
