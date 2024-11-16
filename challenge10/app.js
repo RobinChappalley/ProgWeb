@@ -9,6 +9,7 @@ const textLeading = document.querySelector("span.leadinglabel");
 const output = document.querySelector(".output");
 const fontStyle = document.querySelector("select[name=typeface]");
 const italic = document.querySelector("input[type=checkbox]");
+const colors = document.querySelector(".colors");
 
 weight.addEventListener("input", () => {
   output.style.fontWeight = weight.value;
@@ -30,12 +31,9 @@ fontStyle.addEventListener("change", () => {
 });
 
 italic.addEventListener("click", () => {
-  if (italic.checked) {
-    console.log("c'est coché!");
-    output.style.fontStyle = "italic";
-  } else {
-    output.style.fontStyle = "normal";
-  }
+  italic.checked
+    ? (output.style.fontStyle = "italic")
+    : (output.style.fontStyle = "normal");
 });
 
 ("use strict");
