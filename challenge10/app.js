@@ -13,15 +13,7 @@ const colors = document.querySelector(".colors");
 const inputText = document.querySelector("input[name=text]");
 const defaultText = "The quick brown fox jumps on the lazy dog";
 
-//si le textarea est vide
-// if (!output.value) {
-//   output.addEventListener("input", () => {
-//     inputText.value = output.value;
-//   });
-// } else {
-//   output.value = defaultText;
-// }
-
+//gère le cas où input est vide
 function updateOutput() {
   if (!inputText.value || inputText.value === "") {
     output.value = defaultText;
@@ -32,16 +24,11 @@ function updateOutput() {
 
 // gère le cas où input est rempli
 inputText.addEventListener("input", updateOutput);
-//gère le cas où output est rempli
 
+//gère le cas où output est rempli
 output.addEventListener("input", () => {
   inputText.value = output.value;
 });
-
-//gère le cas où textarea est vide
-// if (!inputText.value || inputText.value === "") {
-//   output.value = defaultText;
-// }
 
 weight.addEventListener("input", () => {
   output.style.fontWeight = weight.value;
@@ -69,8 +56,10 @@ italic.addEventListener("click", () => {
 });
 
 colors.addEventListener("click", (e) => {
-  output.style.backgroundColor = e.target.style.backgroundColor;
-  output.style.color = e.target.style.color;
+  if (e.target !== e.currentTarget) {
+    output.style.backgroundColor = e.target.style.backgroundColor;
+    output.style.color = e.target.style.color;
+  } 
 });
 
 // // Texte par défaut utilisé dans la sortie si aucun texte n'est saisi
