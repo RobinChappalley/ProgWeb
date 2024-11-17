@@ -13,20 +13,8 @@ const colors = document.querySelector(".colors");
 const inputText = document.querySelector("input[name=text]");
 const defaultText = "The quick brown fox jumps on the lazy dog";
 const settingsSaved = [];
+const settingsContainer = document.querySelector(".settings-container");
 const save = document.querySelector(".save");
-
-const saver = () => {
-  return {
-    backgroundColor: output.style.backgroundColor,
-    color: output.style.color,
-    italic: italic.checked,
-    leading: leading.value,
-    size: size.value,
-    text: inputText.value,
-    typeface: fontStyle.value,
-    weight: weight.value,
-  };
-};
 
 //gère le cas où input est vide
 function updateOutput() {
@@ -36,6 +24,18 @@ function updateOutput() {
     output.value = inputText.value;
   }
 }
+const saver = () => {
+  return {
+    backgroundColor: output.style.backgroundColor,
+    color: output.style.color,
+    italic: italic.checked,
+    leading: leading.value,
+    size: size.value,
+    text: output.value,
+    typeface: fontStyle.value,
+    weight: weight.value,
+  };
+};
 
 // gère le cas où input est rempli
 inputText.addEventListener("input", updateOutput);
@@ -79,9 +79,24 @@ colors.addEventListener("click", (e) => {
 
 save.addEventListener("click", () => {
   settingsSaved.push(saver());
-})
+  settingsCreator(saver());
+});
 
-  // Créer un nouvel objet avec les paramètres actuels
+const truncateString = (string = "", maxLength = 50) =>
+  string.length > maxLength ? `${string.substring(0, maxLength)}…` : string;
+
+const settingsCreator = (saved) => {
+  const settingsHTML = `<div class="setting" 
+  style="background-color:${saved.backgroundColor};
+  color:${saved.color};
+  font-family:${saved.typeface};
+  font-weight:${saved.weight};
+  font-style:${saved.italic ? "italic" : "normal"};"
+  >${truncateString(saved.text, 20)}</div>`;
+  settingsContainer.insertAdjacentHTML("beforeend", settingsHTML);
+};
+
+// Créer un nouvel objet avec les paramètres actuels
 
 // // Texte par défaut utilisé dans la sortie si aucun texte n'est saisi
 // const defaultText = `The quick brown fox jumped on the lazy dog`;
