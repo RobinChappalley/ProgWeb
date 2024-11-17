@@ -36,7 +36,10 @@ italic.addEventListener("click", () => {
     : (output.style.fontStyle = "normal");
 });
 
-("use strict");
+colors.addEventListener("click", (e) => {
+  output.style.backgroundColor = e.target.style.backgroundColor;
+  output.style.color = e.target.style.color;
+});
 
 // // Texte par défaut utilisé dans la sortie si aucun texte n'est saisi
 // const defaultText = `The quick brown fox jumped on the lazy dog`;
