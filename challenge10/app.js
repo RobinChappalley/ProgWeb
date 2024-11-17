@@ -12,6 +12,21 @@ const italic = document.querySelector("input[type=checkbox]");
 const colors = document.querySelector(".colors");
 const inputText = document.querySelector("input[name=text]");
 const defaultText = "The quick brown fox jumps on the lazy dog";
+const settingsSaved = [];
+const save = document.querySelector(".save");
+
+const saver = () => {
+  return {
+    backgroundColor: output.style.backgroundColor,
+    color: output.style.color,
+    italic: italic.checked,
+    leading: leading.value,
+    size: size.value,
+    text: inputText.value,
+    typeface: fontStyle.value,
+    weight: weight.value,
+  };
+};
 
 //gère le cas où input est vide
 function updateOutput() {
@@ -59,8 +74,14 @@ colors.addEventListener("click", (e) => {
   if (e.target !== e.currentTarget) {
     output.style.backgroundColor = e.target.style.backgroundColor;
     output.style.color = e.target.style.color;
-  } 
+  }
 });
+
+save.addEventListener("click", () => {
+  settingsSaved.push(saver());
+})
+
+  // Créer un nouvel objet avec les paramètres actuels
 
 // // Texte par défaut utilisé dans la sortie si aucun texte n'est saisi
 // const defaultText = `The quick brown fox jumped on the lazy dog`;
@@ -76,8 +97,8 @@ colors.addEventListener("click", (e) => {
 
 // // Éléments liés à la sauvegarde et à l'affichage des paramètres
 // const saveButton = document.querySelector(".save");                       // Bouton de sauvegarde
-// const settingsContainer = document.querySelector(".settings-container");   // Conteneur pour les paramètres enregistrés
-// const savedSettings = [];                                                 // Tableau pour stocker les paramètres enregistrés
+// const SavedContainer = document.querySelector(".Saved-container");   // Conteneur pour les paramètres enregistrés
+// const savedSaved = [];                                                 // Tableau pour stocker les paramètres enregistrés
 
 // // Étiquettes pour afficher la taille de police, l'épaisseur et l'interlignage actuels
 // const fontSizeLabel = document.querySelector(".sizelabel");
@@ -183,21 +204,21 @@ colors.addEventListener("click", (e) => {
 // const truncateString = (string = "", maxLength = 30) =>
 //     string.length > maxLength ? `${string.substring(0, maxLength)}…` : string;
 
-// // Fonction pour enregistrer les paramètres actuels dans le tableau savedSettings
+// // Fonction pour enregistrer les paramètres actuels dans le tableau savedSaved
 // const saveSetting = (setting) => {
-//     savedSettings.unshift({ ...setting }); // Copier les paramètres actuels dans les paramètres enregistrés
-//     return savedSettings;
+//     savedSaved.unshift({ ...setting }); // Copier les paramètres actuels dans les paramètres enregistrés
+//     return savedSaved;
 // }
 
-// // Fonction pour afficher tous les paramètres enregistrés dans settingsContainer
-// const displaySettings = () => {
-//     const settingElements = savedSettings.map((setting, index) => {
+// // Fonction pour afficher tous les paramètres enregistrés dans SavedContainer
+// const displaySaved = () => {
+//     const settingElements = savedSaved.map((setting, index) => {
 //         return `
 //         <div class="setting" data-index=${index} style="background-color:${setting.background}; color: ${setting.color}; font-family:${setting.typeface}; font-weight: ${setting.weight}; font-style: ${setting.italic}">
 // 	        ${truncateString(setting.text)}
 //         </div>`
 //     });
-//     settingsContainer.innerHTML = settingElements.join(" ");
+//     SavedContainer.innerHTML = settingElements.join(" ");
 // }
 
 // // Fonction pour récupérer un paramètre enregistré et l'appliquer à outputProps
@@ -210,14 +231,14 @@ colors.addEventListener("click", (e) => {
 // // Écouteur d'événements pour enregistrer les paramètres actuels
 // saveButton.addEventListener("click", e => {
 //     saveSetting(outputProps); // Enregistrer les paramètres actuels
-//     displaySettings();        // Mettre à jour l'affichage des paramètres
+//     displaySaved();        // Mettre à jour l'affichage des paramètres
 // })
 
 // // Écouteur d'événements pour récupérer et appliquer un paramètre enregistré au clic
-// settingsContainer.addEventListener("click", e => {
+// SavedContainer.addEventListener("click", e => {
 //     if(!e.target.classList.contains("setting")) return;
 //     const index = e.target.dataset.index;
-//     outputProps = {...savedSettings[index]}; // Charger le paramètre sélectionné
+//     outputProps = {...savedSaved[index]}; // Charger le paramètre sélectionné
 //     updateOutputInterface();
 //     updateSidebarInterface();
 // });
