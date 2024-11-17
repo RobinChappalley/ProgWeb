@@ -10,6 +10,28 @@ const output = document.querySelector(".output");
 const fontStyle = document.querySelector("select[name=typeface]");
 const italic = document.querySelector("input[type=checkbox]");
 const colors = document.querySelector(".colors");
+const inputText = document.querySelector("input[name=text]");
+const defaultText = "The quick brown fox jumps on the lazy dog";
+
+//si le textarea est vide
+// if (!output.value) {
+//   output.addEventListener("input", () => {
+//     inputText.value = output.value;
+//   });
+// } else {
+//   output.value = defaultText;
+// }
+
+// gère le cas où output est rempli
+inputText.addEventListener("input", () => {
+  output.value = inputText.value;
+});
+//gère le cas où input est rempli
+output.addEventListener("input", () => {
+  inputText.value = output.value;
+});
+
+
 
 weight.addEventListener("input", () => {
   output.style.fontWeight = weight.value;
