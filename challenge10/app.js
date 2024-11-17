@@ -15,6 +15,7 @@ const defaultText = "The quick brown fox jumps on the lazy dog";
 const settingsSaved = [];
 const settingsContainer = document.querySelector(".settings-container");
 const save = document.querySelector(".save");
+let divcount = 0
 
 //gère le cas où input est vide
 function updateOutput() {
@@ -87,6 +88,7 @@ const truncateString = (string = "", maxLength = 50) =>
 
 const settingsCreator = (saved) => {
   const settingsHTML = `<div class="setting" 
+  data-index="${divcount++}"
   style="background-color:${saved.backgroundColor};
   color:${saved.color};
   font-family:${saved.typeface};
@@ -95,6 +97,20 @@ const settingsCreator = (saved) => {
   >${truncateString(saved.text, 20)}</div>`;
   settingsContainer.insertAdjacentHTML("beforeend", settingsHTML);
 };
+
+settingsContainer.addEventListener("click", (e) => {
+  if (e.target !== e.currentTarget) {
+    const choosedSetting = settingsSaved[e.target.dataset.index]
+    output.value = choosedSetting.text;
+    output.style.backgroundColor = choosedSetting.backgroundColor;
+    output.style.color = choosedSetting.color;
+    output.style.fontFamily = choosedSetting.typeface;
+    output.style.fontWeight = choosedSetting.weight;
+    output.style.leading = choosedSetting.leading
+    output.style.fontSize = choosedSetting.size
+    output.style.fontStyle = choosedSetting.italic? "italic" : "normal";
+  }
+})
 
 // Créer un nouvel objet avec les paramètres actuels
 
