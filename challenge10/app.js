@@ -22,16 +22,26 @@ const defaultText = "The quick brown fox jumps on the lazy dog";
 //   output.value = defaultText;
 // }
 
-// gère le cas où output est rempli
-inputText.addEventListener("input", () => {
-  output.value = inputText.value;
-});
-//gère le cas où input est rempli
+function updateOutput() {
+  if (!inputText.value || inputText.value === "") {
+    output.value = defaultText;
+  } else {
+    output.value = inputText.value;
+  }
+}
+
+// gère le cas où input est rempli
+inputText.addEventListener("input", updateOutput);
+//gère le cas où output est rempli
+
 output.addEventListener("input", () => {
   inputText.value = output.value;
 });
 
-
+//gère le cas où textarea est vide
+// if (!inputText.value || inputText.value === "") {
+//   output.value = defaultText;
+// }
 
 weight.addEventListener("input", () => {
   output.style.fontWeight = weight.value;
