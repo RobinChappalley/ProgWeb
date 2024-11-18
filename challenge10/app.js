@@ -114,6 +114,8 @@ settingsContainer.addEventListener("click", (e) => {
 
 // Créer un nouvel objet avec les paramètres actuels
 
+
+// CORRECTION
 // // Texte par défaut utilisé dans la sortie si aucun texte n'est saisi
 // const defaultText = `The quick brown fox jumped on the lazy dog`;
 
