@@ -3,13 +3,9 @@
 const input = document.querySelector("#input-todo");
 const list = document.querySelector("#list");
 const categories = document.querySelector("#category-container");
-const home = document.querySelector("[data-category=home]");
-const work = document.querySelector("[data-category=work]");
-const fun = document.querySelector("[data-category=fun]");
 const eraseButtons = document.querySelectorAll(".button-done");
 let chosenCategory = null;
 let taskname = "";
-//console.log(fun.dataset);
 
 const taskCreator = (newtaskname) => {
   const htmlTask = `<li data-category="${chosenCategory}" data-done="false">
@@ -22,22 +18,6 @@ const taskCreator = (newtaskname) => {
   //console.log(eraseButtons)
 };
 
-input.addEventListener("keyup", (e) => {
-  input.addEventListener("input", () => {
-    return input.value;
-  });
-  if (e.key === "Enter") {
-    console.log(categories);
-    taskCreator(input.value);
-  }
-});
-
-categories.addEventListener("click", (e) => {
-  if (e.target !== e.currentTarget) {
-    changeSelection(e);
-  }
-});
-
 const changeSelection = (e) => {
   if (e.target.dataset.selected === "false") {
     for (const children of categories.children) {
@@ -49,6 +29,20 @@ const changeSelection = (e) => {
     e.target.dataset.selected = false;
   }
 };
+input.addEventListener("keyup", (e) => {
+  input.addEventListener("input", () => {
+    return input.value;
+  });
+  if (e.key === "Enter") {
+    taskCreator(input.value);
+  }
+});
+
+categories.addEventListener("click", (e) => {
+  if (e.target !== e.currentTarget) {
+    changeSelection(e);
+  }
+});
 
 list.addEventListener("click", (e) => {
   if (e.target !== e.currentTarget) {
@@ -59,9 +53,8 @@ list.addEventListener("click", (e) => {
       e.target.dataset.done = true;
     }
   }
-});
 
-// eraseButtons.addEventListener("click", (e) => {
-//     console.log(e)
-//     e.innerHTML = ''
-// })
+  if (e.target.classList[0] === "button-done") {
+    e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+  }
+});
