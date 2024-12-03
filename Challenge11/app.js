@@ -28,7 +28,7 @@ const getStation = (input) => {
   const station = input ? input : "Yverdon-les-bains";
   request.open(
     "GET",
-    `http://transport.opendata.ch/v1/stationboard?station=${station}&limit=5`
+    `http://transport.opendata.ch/v1/stationboard?station=${station}&limit=50`
   );
 
   request.send();
