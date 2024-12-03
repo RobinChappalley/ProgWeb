@@ -1,6 +1,5 @@
 "use strict";
 
-// getCoordinates()
 // Demande au navigateur de détecter la position actuelle de l'utilisateur et retourne une Promise
 const getCoordinates = () => {
   return new Promise((res, rej) =>
@@ -8,18 +7,20 @@ const getCoordinates = () => {
   );
 };
 
+getCoordinates();
+
 // getPosition()
 // Résout la promesse de getCoordinates et retourne un objet {lat: x, long: y}
 const getPosition = async () => {
   const position = await getCoordinates();
   return {
     lat: position.coords.latitude,
-    long: position.coords.longitude
+    long: position.coords.longitude,
   };
 };
 
 // renderWeather(min, max)
-// Affiche la valeu des deux paramêtres dans le widget de météo
+// Affiche la valeur des deux paramêtres dans le widget de météo
 const renderWeather = (min, max) => {
   document.querySelector(".min").textContent = `${min}°C`;
   document.querySelector(".max").textContent = `${max}°C`;
@@ -40,12 +41,12 @@ const parseStationData = (rawData) => {
     return {
       departure: `${formattedHours}:${formattedMinutes}`,
       destination: el.to,
-      category: el.category
+      category: el.category,
     };
   });
   return {
     station: rawData.station.name,
-    departures
+    departures,
   };
 };
 
@@ -65,9 +66,10 @@ const renderTrain = (train) => {
 };
 
 // renderStationName(station)
-// Affiche le mot passé en paramettre dans le widget CFF. 
+// Affiche le mot passé en paramettre dans le widget CFF.
 const renderStationName = (station) => {
   const stationElement = document.querySelector(".departures header p");
+  console.log(station)
   stationElement.textContent = station;
 };
 
@@ -77,7 +79,42 @@ const renderStationName = (station) => {
 const getDashboardInformation = () => {
   getPosition().then((res) => {
     console.log(res);
+    const lat = res.lat;
+    const long = res.long;
+    const url = `http://transport.opendata.ch/v1/locations?x=${lat}&y=${long}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        data.stations.forEach((el) => {
+          if(checkIfTrainStation(el)){
+            renderStationName(el.name)
+          }else {
+            console.log("pas de train")
+            ocument.querySelector("header p").textContent =
+          "Pas de station de train";
+          }; return
+          
+        });
+      })
+      // .then(() => {
+      //   renderStationName(station.name);
+      //   // const weather = data.weather;
+      //   // renderWeather(weather);
+      //   const departures = parseStationData(data);
+      //   departures.forEach((train) => {
+      //     renderTrain(train);
+      //   });
+      // })
+      .catch(() => {
+        console.error("Erreur lors de l'appel à l'API");
+        document.querySelector("header p").textContent =
+          "Pas de station de train";
+        
+      });
   });
 };
 
+const checkIfTrainStation = (station) => {
+  return station.icon === "train";
+} 
 getDashboardInformation();
