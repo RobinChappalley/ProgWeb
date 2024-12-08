@@ -133,3 +133,10 @@ article .category[data-category="S"] {
   color: black;
   background-color: white;
 }
+
+section.departures {
+  overflow-y: scroll; /* or overflow: auto; */
+}
+section.departures::-webkit-scrollbar {
+  width: 0px; /* Set the width of the scrollbar */
+}

@@ -50,7 +50,6 @@ const parseStationData = (rawData) => {
   };
 };
 
-// renderTrain(train)
 // Affiche une ligne de départ dans le widget CFF.
 const renderTrain = (train) => {
   const board = document.querySelector(".departures");
@@ -65,7 +64,6 @@ const renderTrain = (train) => {
   return;
 };
 
-// renderStationName(station)
 // Affiche le mot passé en paramettre dans le widget CFF.
 const renderStationName = (station) => {
   const stationElement = document.querySelector(".departures header p");
@@ -79,38 +77,55 @@ const getDashboardInformation = () => {
   getPosition().then((res) => {
     console.log(res);
     const url = `http://transport.opendata.ch/v1/locations?x=${res.lat}&y=${res.long}`;
+    fetch(url).then((response) => response.json());
     fetch(url)
-      .then((response) => response.json())
-      fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        let station;
+        data.stations.forEach((el) => {
+          if (checkIfTrainStation(el)) {
+            station = el;
+            renderStationName(el.name);
           }
-          return response.json();
-        })
-        .then((data) => {
-          data.stations.forEach((el) => {
-            if (checkIfTrainStation(el)) {
-              console.log(el);
-              renderStationName(el.name);
-            }
-          });
-        })
-        .catch(() => {
-          console.error("Erreur lors de l'appel à l'API");
-          document.querySelector("header p").textContent =
-            "Pas de station de train";
         });
-  });
-};
+        //récupère les données pour afficher les prochains trains dans la gare
+        fetch(
+          `http://transport.opendata.ch/v1/stationboard?station=${station.name}&limit=10`
+        )
+          .then((informations) => {
+            return informations.json();
+          })
+          .then((data) => {
+            const parsed = parseStationData(data);
+            console.log(parsed.departures);
+            parsed.departures.forEach((el) => {
+              renderTrain(el);
+            });
+          });
+      })
+      .catch(() => {
+        console.error("Erreur lors de l'appel à l'API");
+        document.querySelector("header p").textContent =
+          "Pas de station de train";
+      });
+      console.log(res);
 
+  })
+};
+// Fonction qui vérifie si une station est une gare de train.
 const checkIfTrainStation = (station) => {
   return station.icon === "train";
-} 
+};
 
-const displayTrain = () => {
-
-}
+const displayTrain = () => {};
 
 // Appel à la fonction getDashboardInformation pour afficher le dashboard.
 getDashboardInformation();
+
+// Appel à la fonction displayTrain pour afficher les départs de train.
+
