@@ -69,7 +69,6 @@ const renderTrain = (train) => {
 // Affiche le mot passé en paramettre dans le widget CFF.
 const renderStationName = (station) => {
   const stationElement = document.querySelector(".departures header p");
-  console.log(station)
   stationElement.textContent = station;
 };
 
@@ -79,42 +78,39 @@ const renderStationName = (station) => {
 const getDashboardInformation = () => {
   getPosition().then((res) => {
     console.log(res);
-    const lat = res.lat;
-    const long = res.long;
-    const url = `http://transport.opendata.ch/v1/locations?x=${lat}&y=${long}`;
+    const url = `http://transport.opendata.ch/v1/locations?x=${res.lat}&y=${res.long}`;
     fetch(url)
       .then((response) => response.json())
-      .then((data) => {
-        data.stations.forEach((el) => {
-          if(checkIfTrainStation(el)){
-            renderStationName(el.name)
-          }else {
-            console.log("pas de train")
-            ocument.querySelector("header p").textContent =
-          "Pas de station de train";
-          }; return
-          
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          data.stations.forEach((el) => {
+            if (checkIfTrainStation(el)) {
+              console.log(el);
+              renderStationName(el.name);
+            }
+          });
+        })
+        .catch(() => {
+          console.error("Erreur lors de l'appel à l'API");
+          document.querySelector("header p").textContent =
+            "Pas de station de train";
         });
-      })
-      // .then(() => {
-      //   renderStationName(station.name);
-      //   // const weather = data.weather;
-      //   // renderWeather(weather);
-      //   const departures = parseStationData(data);
-      //   departures.forEach((train) => {
-      //     renderTrain(train);
-      //   });
-      // })
-      .catch(() => {
-        console.error("Erreur lors de l'appel à l'API");
-        document.querySelector("header p").textContent =
-          "Pas de station de train";
-        
-      });
   });
 };
 
 const checkIfTrainStation = (station) => {
   return station.icon === "train";
 } 
+
+const displayTrain = () => {
+
+}
+
+// Appel à la fonction getDashboardInformation pour afficher le dashboard.
 getDashboardInformation();
