@@ -87,6 +87,7 @@ const getDashboardInformation = () => {
       .then((data) => {
         let station;
         data.stations.forEach((el) => {
+          //console.log(el);
           if (checkIfTrainStation(el)) {
             station = el;
             renderStationName(el.name);
@@ -101,7 +102,7 @@ const getDashboardInformation = () => {
           })
           .then((data) => {
             const parsed = parseStationData(data);
-            console.log(parsed.departures);
+            //console.log(parsed.departures);
             parsed.departures.forEach((el) => {
               renderTrain(el);
             });
@@ -132,10 +133,27 @@ const getDashboardInformation = () => {
 };
 // Fonction qui vérifie si une station est une gare de train.
 const checkIfTrainStation = (station) => {
-  return station.icon === "train";
+  // fetch(
+  //   `http://transport.opendata.ch/v1/stationboard?station=${station.name}&limit=10`
+  // )
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     return response.json();
+  //   })
+  //   .then((e) => {
+  //     console.log(e.stationboard);
+  //     for (const stationboard in e.stationboard) {
+  //       console.log(stationboard)
+  //       //console.log(stationboard);
+  //       //console.log(e.stationboard)
+  //     }
+  //   });
+
+  return station.icon !== "bus" && station.icon !== "tram";
+  // && station.icon !== ";
 };
 
 // Appel à la fonction getDashboardInformation pour afficher le dashboard.
 getDashboardInformation();
-
-// Appel à la fonction displayTrain pour afficher les départs de train.
