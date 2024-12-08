@@ -77,7 +77,6 @@ const getDashboardInformation = () => {
   getPosition().then((res) => {
     console.log(res);
     const url = `http://transport.opendata.ch/v1/locations?x=${res.lat}&y=${res.long}`;
-    fetch(url).then((response) => response.json());
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -113,19 +112,30 @@ const getDashboardInformation = () => {
         document.querySelector("header p").textContent =
           "Pas de station de train";
       });
-      console.log(res);
-
-  })
+    fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${res.lat}&longitude=${res.long}&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        renderWeather(
+          response.daily.temperature_2m_min[0],
+          response.daily.temperature_2m_max[0]
+        );
+      });
+  });
 };
 // Fonction qui vérifie si une station est une gare de train.
 const checkIfTrainStation = (station) => {
   return station.icon === "train";
 };
 
-const displayTrain = () => {};
-
 // Appel à la fonction getDashboardInformation pour afficher le dashboard.
 getDashboardInformation();
 
 // Appel à la fonction displayTrain pour afficher les départs de train.
-
