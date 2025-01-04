@@ -85,6 +85,7 @@ const getDashboardInformation = () => {
         return response.json();
       })
       .then((data) => {
+        
         let station;
         data.stations.forEach((el) => {
           //console.log(el);
