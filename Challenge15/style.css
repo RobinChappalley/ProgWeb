@@ -40,6 +40,7 @@
     background: #ffffff;
     display: grid;
     grid-template-columns: 0.375in 1fr 0.375in;
+    -webkit-user-select: none;
     user-select: none;
     transition: all 250ms ease-out;
     will-change: scale3d;
