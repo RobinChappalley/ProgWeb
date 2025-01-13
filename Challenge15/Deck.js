@@ -1,15 +1,16 @@
+import Card from './Card.js'; 
 class Deck {
   #cards = [];
   constructor(options) {
     this.createFullDeck(options);
   }
    createFullDeck = (options) =>  {
-    console.log(options);
     const suits = options.suits;
     const values = options.values;
     for (const suit of suits) {
       for (const value of values) {
-        this.#cards.push({ suit, value });
+        const card = new Card(value, suit);
+        this.#cards.push(card);
       }
     }
   }
