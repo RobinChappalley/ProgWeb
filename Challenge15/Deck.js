@@ -12,6 +12,9 @@ class Deck {
       }
     }
   }
+    get cards() {
+        return this.#cards;
+    }
 }
 
 export default Deck;
