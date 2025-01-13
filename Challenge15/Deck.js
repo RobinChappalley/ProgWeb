@@ -1,9 +1,10 @@
 class Deck {
   #cards = [];
   constructor(options) {
-    createFullDeck(options);
+    this.createFullDeck(options);
   }
-  createFullDeck(options) {
+   createFullDeck = (options) =>  {
+    console.log(options);
     const suits = options.suits;
     const values = options.values;
     for (const suit of suits) {
