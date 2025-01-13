@@ -17,6 +17,11 @@ class Deck {
     get cards() {
         return this.#cards;
     }
+    displayCards(){
+        for (const card of this.#cards) {
+            card.display();
+        }
+    }
 }
 
 export default Deck;

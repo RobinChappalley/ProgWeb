@@ -7,3 +7,4 @@ const options = {
     };
 const deck = new Deck(options)
 console.log(deck.cards);
+deck.displayCards()
