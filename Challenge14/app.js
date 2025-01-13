@@ -1,7 +1,10 @@
 class Form {
   #fields = [];
 
-  constructor() {}
+  constructor() {
+    this.#fields = [];
+    
+  }
 
   #submit(e) {
     // Prevent page from refreshing on form submit.
