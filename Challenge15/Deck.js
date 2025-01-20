@@ -1,5 +1,5 @@
 import Card from "./Card.js";
-import Shuffle from "./node_modules/lodash-es/shuffle.js";
+import shuffle from "./node_modules/lodash-es/shuffle.js";
 class Deck {
   #cards = [];
   constructor(options) {
@@ -24,7 +24,7 @@ class Deck {
     }
   }
   shuffleCards() {
-    this.#cards = Shuffle(this.#cards);
+    this.#cards = shuffle(this.#cards);
   }
 }
 
