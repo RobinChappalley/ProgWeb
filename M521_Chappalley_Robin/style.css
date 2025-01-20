@@ -95,7 +95,7 @@ hr {
   margin: 0 0 1rem 0;
   overflow: hidden;
   padding: 1rem;
-  user-select: none;
+  /* user-select: none; */
 }
 
 #list > li::before {
