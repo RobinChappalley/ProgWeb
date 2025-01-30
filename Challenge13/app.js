@@ -1,5 +1,7 @@
+"use strict";
+
 // **À IMPLEMENTER**
-// Devrait permettre de regarder si l'utilisateur est authentifié 
+// Devrait permettre de regarder si l'utilisateur est authentifié
 const isAuthenticated = () => false;
 
 // Affiche un message à l'utilisateur.
@@ -40,12 +42,23 @@ const initEventListeners = () => {
       toggleForm(e.target.id); // Bascule le formulaire actif en fonction de l'onglet cliqué.
     }
   });
+  document
+    .querySelector('form[name="signup"]')
+    .addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      console.log(getFormData(e.target));
+    });
 };
 
 // **À COMPLETER**
 const pageLoad = () => {
   handleInterfaceAuth();
   initEventListeners();
+};
+
+const getFormData = (e) => {
+  return Object.fromEntries(new FormData(e));
 };
 
 pageLoad();
