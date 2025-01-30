@@ -2,7 +2,11 @@
 
 // **À IMPLEMENTER**
 // Devrait permettre de regarder si l'utilisateur est authentifié
-const isAuthenticated = () => false;
+const isAuthenticated = () => {
+  if (localStorage.getItem("token")) {
+    return true;
+  }
+};
 
 // Affiche un message à l'utilisateur.
 const displayMessage = (message) => {
@@ -46,27 +50,19 @@ const initEventListeners = () => {
     .querySelector('form[name="signup"]')
     .addEventListener("submit", (e) => {
       e.preventDefault();
-      user(getFormData(e.target),"");
+      user(getFormData(e.target), "");
     });
   document
     .querySelector('form[name="login"]')
-    .addEventListener("submit", (e) => {
+    .addEventListener("submit", async (e) => {
       e.preventDefault();
-      user(getFormData(e.target), "login");
+      const datas = await user(getFormData(e.target), "login");
+      setToken(datas);
+      handleInterfaceAuth();
     });
 };
 
 // **À COMPLETER**
-const pageLoad = () => {
-  handleInterfaceAuth();
-  initEventListeners();
-};
-
-const getFormData = (e) => {
-  const t = Object.fromEntries(new FormData(e));
-  e.reset();
-  return t;
-};
 
 async function user(data, val) {
   const response = await fetch(
@@ -75,8 +71,15 @@ async function user(data, val) {
   );
   const datas = await response.json();
   displayMessage(datas.message);
+  return datas;
 }
 
+async function setToken(data) {
+  console.log(data);
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+  }
+}
 const requestInfo = (data) => {
   return {
     method: "POST",
@@ -86,5 +89,14 @@ const requestInfo = (data) => {
     },
   };
 };
+const getFormData = (e) => {
+  const t = Object.fromEntries(new FormData(e));
+  e.reset();
+  return t;
+};
 
+const pageLoad = () => {
+  handleInterfaceAuth();
+  initEventListeners();
+};
 pageLoad();
