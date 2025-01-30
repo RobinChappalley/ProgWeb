@@ -46,10 +46,14 @@ const initEventListeners = () => {
     .querySelector('form[name="signup"]')
     .addEventListener("submit", (e) => {
       e.preventDefault();
-      //console.log(getFormData(e.target));
       addUser(getFormData(e.target));
     });
-  //form.reset();
+  document
+    .querySelector('form[name="login"]')
+    .addEventListener("submit", (e) => {
+      e.preventDefault();
+      connectUser(getFormData(e.target));
+    });
 };
 
 // **À COMPLETER**
@@ -65,19 +69,24 @@ const getFormData = (e) => {
 };
 
 async function addUser(data) {
-  const requestInfo = {
+  const response = await fetch(
+    "https://progweb-todo-api.onrender.com/users/",
+    requestInfo(data)
+  );
+  const datas = await response.json();
+  displayMessage(datas.message);
+}
+
+async function connectUser(data) {}
+
+const requestInfo = (data) => {
+  return {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
   };
-  console.log(data);
-  await fetch("https://progweb-todo-api.onrender.com/users/", requestInfo).then(
-    (response) => {
-      console.log(JSON.stringify(response));
-    }
-  );
-}
+};
 
 pageLoad();
