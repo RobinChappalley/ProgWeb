@@ -46,9 +46,9 @@ const initEventListeners = () => {
     .querySelector('form[name="signup"]')
     .addEventListener("submit", (e) => {
       e.preventDefault();
-
       console.log(getFormData(e.target));
     });
+  //form.reset();
 };
 
 // **À COMPLETER**
@@ -58,7 +58,9 @@ const pageLoad = () => {
 };
 
 const getFormData = (e) => {
-  return Object.fromEntries(new FormData(e));
+  const t = Object.fromEntries(new FormData(e));
+  e.reset();
+  return t;
 };
 
 pageLoad();
