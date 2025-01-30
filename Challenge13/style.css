@@ -171,7 +171,7 @@ main > ul > li {
 }
 
 /* Error Message */
-.message.error {
+.message {
   color: red;
   font-weight: bold;
 }
