@@ -46,13 +46,13 @@ const initEventListeners = () => {
     .querySelector('form[name="signup"]')
     .addEventListener("submit", (e) => {
       e.preventDefault();
-      addUser(getFormData(e.target));
+      user(getFormData(e.target),"");
     });
   document
     .querySelector('form[name="login"]')
     .addEventListener("submit", (e) => {
       e.preventDefault();
-      connectUser(getFormData(e.target));
+      user(getFormData(e.target), "login");
     });
 };
 
@@ -68,16 +68,14 @@ const getFormData = (e) => {
   return t;
 };
 
-async function addUser(data) {
+async function user(data, val) {
   const response = await fetch(
-    "https://progweb-todo-api.onrender.com/users/",
+    `https://progweb-todo-api.onrender.com/users/${val}`,
     requestInfo(data)
   );
   const datas = await response.json();
   displayMessage(datas.message);
 }
-
-async function connectUser(data) {}
 
 const requestInfo = (data) => {
   return {
