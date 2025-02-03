@@ -25,6 +25,8 @@ const handleInterfaceAuth = () => {
   document
     .querySelectorAll(".requires-unauth")
     .forEach((el) => el.classList.toggle("hidden", auth)); // Cache ou montre les éléments ne nécessitant pas d'authentification.
+  // displayTasks(getTasks());
+  getTasks().then((data) => displayTasks(data));
 };
 
 // Basculer entre les formulaires de connexion et d'inscription.
@@ -126,7 +128,6 @@ const getFormData = (e) => {
 };
 
 async function addTask(taskinfos) {
-  console.log(taskinfos);
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/todos`,
     requestInfo(taskinfos, localStorage.getItem("token"))
@@ -139,10 +140,26 @@ async function getTasks() {
     requestInfo(null, localStorage.getItem("token"))
   );
   const todoTable = await response.json();
-  return todoTable.todos;
+  return todoTable;
 }
 const pageLoad = () => {
   handleInterfaceAuth();
   initEventListeners();
+};
+
+const displayTasks = async (taskinfos) => {
+  for (const task of taskinfos.todos) {
+    const ul = document.querySelector("ul");
+    const element = ul.appendChild(document.createElement("li"));
+    element.classList.add(task.id);
+    const body = element.appendChild(document.createElement("p"));
+    body.textContent = task.body;
+    body.classList.add("body");
+    const tag = element.appendChild(document.createElement("p"));
+    tag.textContent = task.tags;
+    tag.classList.add("tags");
+    const deleteCross = element.appendChild(document.createElement("div"));
+    deleteCross.classList.add("delete");
+  }
 };
 pageLoad();
