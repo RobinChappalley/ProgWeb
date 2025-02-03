@@ -5,6 +5,8 @@
 const isAuthenticated = () => {
   if (localStorage.getItem("token")) {
     return true;
+  } else {
+    return false;
   }
 };
 
@@ -60,6 +62,14 @@ const initEventListeners = () => {
       setToken(datas);
       handleInterfaceAuth();
     });
+
+  document
+    .querySelector(`button[name="logout"`)
+    .addEventListener("click", (e) => {
+      if (unsetToken()) {
+        handleInterfaceAuth();
+      }
+    });
 };
 
 // **À COMPLETER**
@@ -80,6 +90,11 @@ async function setToken(data) {
     localStorage.setItem("token", data.token);
   }
 }
+const unsetToken = () => {
+  localStorage.removeItem("token");
+  return true;
+};
+
 const requestInfo = (data) => {
   return {
     method: "POST",
