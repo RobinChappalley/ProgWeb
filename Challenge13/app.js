@@ -79,6 +79,9 @@ const initEventListeners = () => {
       e.preventDefault();
       addTask(getFormData(e.target));
     });
+  document.querySelector(`ul`).addEventListener("click", (e) => {
+    deleteTask(e.target.parentElement.classList[0]);
+  });
 };
 
 // **À COMPLETER**
@@ -104,7 +107,7 @@ const unsetToken = () => {
   return true;
 };
 
-const requestInfo = (data, token = null) => {
+const requestInfo = (data, token = null, method) => {
   const headers = {
     "Content-Type": "application/json",
   };
@@ -113,12 +116,13 @@ const requestInfo = (data, token = null) => {
   }
 
   const request = {
-    method: data ? "POST" : "GET",
+    method: data ? "POST" : method ? method : "GET",
     headers: headers,
   };
   if (data) {
     request.body = JSON.stringify(data);
   }
+  console.log(request);
   return request;
 };
 const getFormData = (e) => {
@@ -144,7 +148,7 @@ async function getTasks() {
   return todoTable;
 }
 
-const displayTasks = async (taskinfos) => {
+async function displayTasks(taskinfos) {
   for (const task of taskinfos.todos) {
     const ul = document.querySelector("ul");
     const element = ul.appendChild(document.createElement("li"));
@@ -158,7 +162,32 @@ const displayTasks = async (taskinfos) => {
     const deleteCross = element.appendChild(document.createElement("div"));
     deleteCross.classList.add("delete");
   }
-};
+}
+
+async function deleteTask(taskid) {
+  console.log(`Suppression de la tâche avec l'id :${taskid}`);
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+  const response = await fetch(
+    `https://progweb-todo-api.onrender.com/todos/${taskid}`,
+    options
+  );
+
+  if (!response.ok) {
+    console.error(
+      `Erreur lors de la suppression de la tâche : ${response.statusText}`
+    );
+  }
+  const data = await response.json();
+  console.log(`Réponse de l'API après suppression :`, data.message);
+  return todoTable;
+}
+
 const pageLoad = () => {
   handleInterfaceAuth();
   initEventListeners();
