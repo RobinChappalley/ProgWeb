@@ -149,8 +149,9 @@ async function getTasks() {
 }
 
 async function displayTasks(taskinfos) {
+  const ul = document.querySelector("ul");
+  ul.innerHTML = "";
   for (const task of taskinfos.todos) {
-    const ul = document.querySelector("ul");
     const element = ul.appendChild(document.createElement("li"));
     element.classList.add(task.id);
     const body = element.appendChild(document.createElement("p"));
@@ -184,6 +185,8 @@ async function deleteTask(taskid) {
     );
   }
   const data = await response.json();
+  console.log("coucou");
+
   console.log(`Réponse de l'API après suppression :`, data.message);
   return todoTable;
 }
