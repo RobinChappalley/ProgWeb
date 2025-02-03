@@ -8,6 +8,7 @@ const isAuthenticated = () => {
   } else {
     return false;
   }
+  // return true; // Pour le moment, on considère qu'un utilisateur est authentifié.
 };
 
 // Affiche un message à l'utilisateur.
@@ -70,6 +71,12 @@ const initEventListeners = () => {
         handleInterfaceAuth();
       }
     });
+  document
+    .querySelector('form[name="todo"]')
+    .addEventListener("submit", (e) => {
+      e.preventDefault();
+      addTask(getFormData(e.target));
+    });
 };
 
 // **À COMPLETER**
@@ -95,14 +102,22 @@ const unsetToken = () => {
   return true;
 };
 
-const requestInfo = (data) => {
-  return {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
+const requestInfo = (data, token = null) => {
+  const headers = {
+    "Content-Type": "application/json",
   };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const request = {
+    method: data ? "POST" : "GET",
+    headers: headers,
+  };
+  if (data) {
+    request.body = JSON.stringify(data);
+  }
+  return request;
 };
 const getFormData = (e) => {
   const t = Object.fromEntries(new FormData(e));
@@ -110,6 +125,22 @@ const getFormData = (e) => {
   return t;
 };
 
+async function addTask(taskinfos) {
+  console.log(taskinfos);
+  const response = await fetch(
+    `https://progweb-todo-api.onrender.com/todos`,
+    requestInfo(taskinfos, localStorage.getItem("token"))
+  );
+}
+
+async function getTasks() {
+  const response = await fetch(
+    `https://progweb-todo-api.onrender.com/todos`,
+    requestInfo(null, localStorage.getItem("token"))
+  );
+  const todoTable = await response.json();
+  return todoTable.todos;
+}
 const pageLoad = () => {
   handleInterfaceAuth();
   initEventListeners();
