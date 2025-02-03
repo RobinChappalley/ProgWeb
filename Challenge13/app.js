@@ -79,23 +79,23 @@ const initEventListeners = () => {
       e.preventDefault();
       addTask(getFormData(e.target));
     });
-  document.querySelector(`ul`).addEventListener("click", (e) => {
-    deleteTask(e.target.parentElement.classList[0]);
+  document.querySelector(`ul`).addEventListener("click", async (e) => {
+    if (e.target !== e.currentTarget) {
+      // Ne s'exécute que si on clique sur un enfant
+
+      deleteTask(e.target.parentElement.classList[0]);
+    }
   });
 };
-
-// **À COMPLETER**
-
 async function user(data, val) {
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/users/${val}`,
-    requestInfo(data)
+    requestInfo(data, "GET")
   );
   const datas = await response.json();
   displayMessage(datas.message);
   return datas;
 }
-
 async function setToken(data) {
   console.log(data);
   if (data.token) {
@@ -106,7 +106,6 @@ const unsetToken = () => {
   localStorage.removeItem("token");
   return true;
 };
-
 const requestInfo = (data, token = null, method) => {
   const headers = {
     "Content-Type": "application/json",
@@ -116,10 +115,10 @@ const requestInfo = (data, token = null, method) => {
   }
 
   const request = {
-    method: data ? "POST" : method ? method : "GET",
+    method: method,
     headers: headers,
   };
-  if (data) {
+  if (request.method !== "GET") {
     request.body = JSON.stringify(data);
   }
   console.log(request);
@@ -130,24 +129,21 @@ const getFormData = (e) => {
   e.reset();
   return t;
 };
-
 async function addTask(taskinfos) {
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/todos`,
-    requestInfo(taskinfos, localStorage.getItem("token"))
+    requestInfo(taskinfos, localStorage.getItem("token"), "POST")
   );
   handleInterfaceAuth();
 }
-
 async function getTasks() {
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/todos`,
-    requestInfo(null, localStorage.getItem("token"))
+    requestInfo(null, localStorage.getItem("token"), "GET")
   );
   const todoTable = await response.json();
   return todoTable;
 }
-
 async function displayTasks(taskinfos) {
   const ul = document.querySelector("ul");
   ul.innerHTML = "";
@@ -166,29 +162,13 @@ async function displayTasks(taskinfos) {
 }
 
 async function deleteTask(taskid) {
-  console.log(`Suppression de la tâche avec l'id :${taskid}`);
-  const options = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  };
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/todos/${taskid}`,
-    options
+    requestInfo(null, localStorage.getItem("token"), "DELETE")
   );
-
-  if (!response.ok) {
-    console.error(
-      `Erreur lors de la suppression de la tâche : ${response.statusText}`
-    );
-  }
-  const data = await response.json();
-  console.log("coucou");
-
-  console.log(`Réponse de l'API après suppression :`, data.message);
-  return todoTable;
+  const data = await response.json(); 
+  displayMessage(data.message);
+  return data;
 }
 
 const pageLoad = () => {
