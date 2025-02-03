@@ -132,6 +132,7 @@ async function addTask(taskinfos) {
     `https://progweb-todo-api.onrender.com/todos`,
     requestInfo(taskinfos, localStorage.getItem("token"))
   );
+  handleInterfaceAuth();
 }
 
 async function getTasks() {
@@ -142,10 +143,6 @@ async function getTasks() {
   const todoTable = await response.json();
   return todoTable;
 }
-const pageLoad = () => {
-  handleInterfaceAuth();
-  initEventListeners();
-};
 
 const displayTasks = async (taskinfos) => {
   for (const task of taskinfos.todos) {
@@ -162,4 +159,9 @@ const displayTasks = async (taskinfos) => {
     deleteCross.classList.add("delete");
   }
 };
+const pageLoad = () => {
+  handleInterfaceAuth();
+  initEventListeners();
+};
+
 pageLoad();
