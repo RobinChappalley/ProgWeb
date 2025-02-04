@@ -1,22 +1,15 @@
 "use strict";
-
-// **À IMPLEMENTER**
-// Devrait permettre de regarder si l'utilisateur est authentifié
 const isAuthenticated = () => {
   if (localStorage.getItem("token")) {
     return true;
   } else {
     return false;
   }
-  // return true; // Pour le moment, on considère qu'un utilisateur est authentifié.
 };
 
-// Affiche un message à l'utilisateur.
 const displayMessage = (message) => {
   document.querySelector(".message").textContent = message; // Sélectionne l'élément de message et met à jour son texte.
 };
-
-// Gère l'affichage des éléments de l'interface en fonction de l'état d'authentification.
 const handleInterfaceAuth = () => {
   const auth = isAuthenticated(); // Vérifie si l'utilisateur est authentifié.
   document
@@ -25,11 +18,8 @@ const handleInterfaceAuth = () => {
   document
     .querySelectorAll(".requires-unauth")
     .forEach((el) => el.classList.toggle("hidden", auth)); // Cache ou montre les éléments ne nécessitant pas d'authentification.
-  // displayTasks(getTasks());
-  getTasks().then((data) => displayTasks(data));
+  if (auth) getTasks().then((data) => displayTasks(data));
 };
-
-// Basculer entre les formulaires de connexion et d'inscription.
 const toggleForm = (formName) => {
   document
     .querySelectorAll("form")
@@ -41,9 +31,6 @@ const toggleForm = (formName) => {
     .forEach((tab) => tab.classList.remove("active")); // Désactive tous les onglets.
   document.querySelector(`.tab#${formName}`).classList.add("active"); // Active l'onglet spécifié.
 };
-
-// **À COMPLETER**
-// Initialisation de la page
 const initEventListeners = () => {
   document.querySelector(".tab-container").addEventListener("click", (e) => {
     // Gère les clics sur les onglets.
@@ -65,7 +52,6 @@ const initEventListeners = () => {
       setToken(datas);
       handleInterfaceAuth();
     });
-
   document
     .querySelector(`button[name="logout"`)
     .addEventListener("click", (e) => {
@@ -79,41 +65,22 @@ const initEventListeners = () => {
       e.preventDefault();
       addTask(getFormData(e.target));
     });
-  document.querySelector(`ul`).addEventListener("click", async (e) => {
-    if (e.target !== e.currentTarget) {
-      // Ne s'exécute que si on clique sur un enfant
-
-      deleteTask(e.target.parentElement.classList[0]);
-    }
-  });
-};
-async function user(data, val) {
-  const response = await fetch(
-    `https://progweb-todo-api.onrender.com/users/${val}`,
-    requestInfo(data, "GET")
-  );
-  const datas = await response.json();
-  displayMessage(datas.message);
-  return datas;
-}
-async function setToken(data) {
-  console.log(data);
-  if (data.token) {
-    localStorage.setItem("token", data.token);
+  if (isAuthenticated()) {
+    document.querySelector(`ul`).addEventListener("click", async (e) => {
+      if (e.target.classList.contains("delete")) {
+        deleteTask(e.target.parentElement.classList[0]);
+        e.target.parentElement.remove();
+      }
+    });
   }
-}
-const unsetToken = () => {
-  localStorage.removeItem("token");
-  return true;
 };
-const requestInfo = (data, token = null, method) => {
+function requestInfo(data, token = null, method) {
   const headers = {
     "Content-Type": "application/json",
   };
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
-
   const request = {
     method: method,
     headers: headers,
@@ -123,6 +90,30 @@ const requestInfo = (data, token = null, method) => {
   }
   console.log(request);
   return request;
+}
+async function user(data, val) {
+  const response = await fetch(
+    `https://progweb-todo-api.onrender.com/users/${val}`,
+    requestInfo(
+      data,
+      val === "login" ? localStorage.getItem("token") : null,
+      val === "login" ? "GET" : "POST"
+    )
+  );
+  const datas = await response.json();
+  console.log(datas);
+  displayMessage(datas.message);
+  return datas;
+}
+function setToken(data) {
+  console.log(data);
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+  }
+}
+const unsetToken = () => {
+  localStorage.removeItem("token");
+  return true;
 };
 const getFormData = (e) => {
   const t = Object.fromEntries(new FormData(e));
@@ -134,6 +125,8 @@ async function addTask(taskinfos) {
     `https://progweb-todo-api.onrender.com/todos`,
     requestInfo(taskinfos, localStorage.getItem("token"), "POST")
   );
+  const data = await response.json();
+  displayMessage(data.message);
   handleInterfaceAuth();
 }
 async function getTasks() {
@@ -160,20 +153,17 @@ async function displayTasks(taskinfos) {
     deleteCross.classList.add("delete");
   }
 }
-
 async function deleteTask(taskid) {
   const response = await fetch(
     `https://progweb-todo-api.onrender.com/todos/${taskid}`,
     requestInfo(null, localStorage.getItem("token"), "DELETE")
   );
-  const data = await response.json(); 
+  const data = await response.json();
   displayMessage(data.message);
   return data;
 }
-
 const pageLoad = () => {
   handleInterfaceAuth();
   initEventListeners();
 };
-
 pageLoad();
